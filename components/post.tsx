@@ -53,19 +53,19 @@ export default function Post(){
 
     return(
         <>
-            <div className="w-full bg-[#6d6fcd] sticky top-0 px-5">
+            <div className="w-full bg-[#6d6fcd] px-5">
                 <div className="max-w-7xl mx-auto py-5">
                     <h1 className='text-2xl font-medium text-white'>자유 게시판</h1>
                 </div>
             </div>
             <div className="w-full px-5">
-                <div className="max-w-7xl mx-auto pt-3 sticky top-20">
+                <div className="max-w-7xl mx-auto pt-3">
                     <div className="flex justify-end">
                         <Link href="/write" className='bg-[#8082d3] text-lg text-white px-10 py-2 rounded-xl shadow-[0_0_0_1px_#dadcdf,0_4px_8px_0_rgba(0,0,0,.15)] hover:bg-[#6d6fcd]'>글쓰기</Link>
                     </div>
                 </div>
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-white shadow-md lg:my-10 my-5">
+                    <div className="bg-white shadow-md my-5">
                         <div className="min-w-full">
                             <ul className="bg-[#8082d3] text-white flex justify-between">
                                 <li className='px-6 md:basis-2/12 py-3 text-center'>번호</li>
@@ -74,9 +74,9 @@ export default function Post(){
                                 <li className='px-6 md:basis-2/12 py-3 text-center'>작성일</li>
                             </ul>
                             {
-                                // posts && posts.length === 0 && !isLoading ?
-                                // <p className='text-center text-lg py-3'>등록된 게시글이 없습니다.</p>
-                                // :
+                                posts && posts.length === 0 && !isLoading ?
+                                <p className='text-center text-lg py-3'>등록된 게시글이 없습니다.</p>
+                                :
                                 posts && posts.map((e,i)=>{
                                     const date = new Date(e.date);
                                     const year = date.getFullYear();
@@ -111,8 +111,8 @@ export default function Post(){
                             )
                         })
                     }
-                    {page < lastPage && <button className='bg-white border px-1.5 py-1 rounded text-sm' onClick={nextPage}>다음</button>}
-                    {page < lastPage && <button className='bg-white border px-2.5 py-1 rounded text-sm' onClick={()=>setPage(lastPage)}>&gt;&gt;</button>}
+                    {page < lastPage && page > 5 && <button className='bg-white border px-1.5 py-1 rounded text-sm' onClick={nextPage}>다음</button>}
+                    {page < lastPage && page > 5 && <button className='bg-white border px-2.5 py-1 rounded text-sm' onClick={()=>setPage(lastPage)}>&gt;&gt;</button>}
                 </div>      
             </div>
         </>

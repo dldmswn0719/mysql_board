@@ -23,6 +23,16 @@ export default function Write(){
 
     const submitEvent = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+        if(formData.name.length === 0){
+            alert("작성자를 입력해주세요.")
+            return;
+        }else if(formData.title.length === 0){
+            alert("제목을 입력해주세요.")
+            return;
+        }else if(formData.content.length === 0){
+            alert("내용을 입력해주세요.")
+            return;
+        }
         try{
             const res = await fetch('/api/write',{
                 method : "POST",
@@ -47,7 +57,7 @@ export default function Write(){
 
     return(
         <>
-            <div className="w-full bg-[#6d6fcd] sticky top-0 px-5">
+            <div className="w-full bg-[#6d6fcd] px-5">
                 <div className="max-w-7xl mx-auto py-5">
                     <h1 className='text-2xl font-medium text-white'>게시판</h1>
                 </div>
@@ -59,10 +69,10 @@ export default function Write(){
                             <Link className='bg-[#a6a7e0] text-white px-10 py-2 inline-block mr-2 rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none' href="/">취소</Link>
                             <button className='bg-[#8082d3] text-white px-10 py-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none'>등록</button>
                         </div>
-                        <div className="lg:mt-10 mt-5">
+                        <div className="mt-5 border rounded-xl p-5">
                             <div className='flex flex-wrap'>
-                                <p className='text-base md:text-lg lg:text-xl lg:basis-[5%] basis-full mt-2 mr-1'>작성자</p>
-                                <input onChange={changeEvent} className='lg:basis-[90%] basis-full my-2 shadow text-gray-700 mb-2 border w-1/4 py-1 px-5 rounded-lg' type="text" name='name' defaultValue={formData.name} />
+                                <p className='text-base md:text-lg lg:text-xl basis-full mt-2 mr-1'>작성자</p>
+                                <input onChange={changeEvent} className='basis-full my-2 shadow text-gray-700 mb-2 border w-1/4 py-1 px-5 rounded-lg' type="text" name='name' defaultValue={formData.name} />
                             </div>
                             <div>
                                 <p className='text-base md:text-lg lg:text-xl'>제목</p>

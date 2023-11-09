@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import { useParams } from "next/navigation"
 import React, { useEffect , useState } from 'react';
 
@@ -62,26 +63,37 @@ export default function Detatil(){
         {
             post.length > 0 && (
                 <>
-                    <div className="w-full bg-[#6d6fcd] sticky top-0 px-5">
+                    <div className="w-full bg-[#6d6fcd] px-5">
                         <div className="max-w-7xl mx-auto py-5">
-                            <h1 className='text-2xl font-medium text-white'>게시판</h1>
+                            <h1 className='text-2xl font-medium text-white'>자유 게시판</h1>
                         </div>
                     </div>
                     <div className="w-full px-5">
                         <div className="max-w-7xl mx-auto">
                             <div className="flex justify-end mt-5">
-                                <button className="bg-[#8082d3] text-white px-10 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button>
-                                <button onClick={()=>{deletePost(post[0].id)}} className="bg-[#a6a7e0] text-white px-10 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
+                                <div>
+                                    <Link href={`/edit/${post[0].id}`}><button className="bg-[#8082d3] text-white px-10 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button></Link>
+                                    <button onClick={()=>{deletePost(post[0].id)}} className="bg-[#a6a7e0] text-white px-10 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
+                                </div>
                             </div>
-                            <div className="lg:mt-10">
-                                <div className="flex flex-wrap">
+                            <div className="lg:mt-8 border rounded-xl p-5">
+                                <div className="flex flex-wrap my-1 border-b py-1">
+                                    <p className="text-lg md:text-xl lg:text-2xl lg:basis-[5%] basis-full mt-1">작성자</p>
+                                    <p className="py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.author}</p>
+                                </div>
+                                <div className="flex flex-wrap border-b py-1">
                                     <p className="text-lg md:text-xl lg:text-2xl lg:basis-[5%] basis-full mt-1">제목</p>
-                                    <p className="border rounded-xl py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.title}</p>
+                                    <p className="py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.title}</p>
                                 </div>                
-                                <p className="text-lg md:text-xl lg:text-2xl">내용</p>
-                                <div className="border rounded-xl py-2 px-5 w-full mt-3 h-auto">
+                                <p className="text-lg md:text-xl lg:text-2xl pt-2">내용</p>
+                                <div className="py-2 px-5 w-full mt-3 h-auto">
                                     <p>{post && post[0]?.content}</p>
                                 </div>                
+                            </div>
+                            <div className="flex justify-end mt-5">
+                                <Link href="/">
+                                    <p className="text-xl">목록</p>
+                                </Link>
                             </div>
                         </div>
                     </div>

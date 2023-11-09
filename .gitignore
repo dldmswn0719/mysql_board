@@ -18,6 +18,7 @@ db.js
 /build
 
 # misc
+.env
 .DS_Store
 *.pem
 
