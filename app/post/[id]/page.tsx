@@ -65,7 +65,7 @@ export default function Detatil(){
                 <>
                     <div className="w-full bg-[#6d6fcd] px-5">
                         <div className="max-w-7xl mx-auto py-5">
-                            <h1 className='text-2xl font-medium text-white'>자유 게시판</h1>
+                            <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
                         </div>
                     </div>
                     <div className="w-full px-5">

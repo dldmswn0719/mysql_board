@@ -4,6 +4,9 @@ import './globals.css'
 import Login from '@/components/login'
 import {getServerSession} from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
 

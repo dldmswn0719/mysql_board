@@ -1,10 +1,6 @@
 'use client'
-import Image from "next/image"
-import kakaologin from '@/public/kakao.png'
-import naverlogin from '@/public/naver.png'
-import githublogin from '@/public/github.png'
-import googlelogin from '@/public/google.png'
 import { signIn ,signOut } from "next-auth/react"
+import Link from "next/link"
 
 interface userInfo{
     name : string;
@@ -23,14 +19,19 @@ export default function Login({session} : PropsData){
                 <div className="max-w-7xl mx-auto">
                     <div className="py-5 flex justify-end space-x-3">
                         {
-                            session && session.user?.email ?
+                            session && session.user.level === 10 ?
+                            '관리자'
+                            :
+                            session && session.user !== null && '일반회원'
+                        }
+                        {console.log(session && session.user)}
+                        {
+                            session && session.user ?
                             <button onClick={()=>{signOut()}}>로그아웃</button>
                             :
                             <>
-                                <button onClick={()=>{signIn('kakao')}}><Image width={40} height={40} src={kakaologin} alt="카카오로그인" /></button>       
-                                <button onClick={()=>{signIn('naver')}}><Image width={40} height={40} src={naverlogin} alt="네이버로그인" /></button>       
-                                <button onClick={()=>{signIn('github')}}><Image width={40} height={40} src={githublogin} alt="깃허브로그인" /></button>       
-                                <button onClick={()=>{signIn('google')}}><Image width={40} height={40} src={googlelogin} alt="구글로그인" /></button>       
+                                <Link href='/register'>회원가입</Link>
+                                <Link href='/login'><button>로그인</button></Link>
                             </>
                         }
                     </div>
