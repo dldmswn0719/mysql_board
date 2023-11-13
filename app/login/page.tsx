@@ -11,8 +11,20 @@ import { faEyeSlash,faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link"
 
+interface userInfo{
+    user:{
+        name:string;
+        email:any;
+        password: string;
+        level: number
+    }
+}
 
-export default function Login(){
+interface PropsData{
+    session ?: userInfo | null
+}
+
+export default function Login({session}:PropsData){
 
     const [email,setEmail] = useState<string>("");
     const [pw,setPw] = useState<string>("")
@@ -45,11 +57,11 @@ export default function Login(){
                         <div className="text-2xl text-center mb-5">로그인</div>
                         <div className="mb-5">
                             <p>이메일 주소</p>
-                            <input onChange={(e)=>{setEmail(e.target.value)}} type="text" name="email" placeholder="예) test@naver.com" required className="w-full py-3 mb-2 border-b focus:outline-none border-[#ddd]" />
+                            <input value={email} onChange={(e)=>{setEmail(e.target.value)}} type="text" name="email" placeholder="예) test@naver.com" required className="w-full py-3 mb-2 border-b focus:outline-none border-[#ddd]" />
                         </div>
                         <div className="mb-5 relative">
                             <p>비밀번호</p>
-                            <input onChange={(e)=>{setPw(e.target.value)}} type={showPw ? "text" : "password"} name="password" required className="focus:outline-none w-full py-3 mb-2 border-b border-[#ddd]" />
+                            <input value={pw} onChange={(e)=>{setPw(e.target.value)}} type={showPw ? "text" : "password"} name="password" required className="focus:outline-none w-full py-3 mb-2 border-b border-[#ddd]" />
                             <div onClick={ShowPassword} className="absolute right-2 top-1/2 cursor-pointer">
                                 <FontAwesomeIcon icon={showPw ? faEye : faEyeSlash} />
                             </div>                           
@@ -60,7 +72,7 @@ export default function Login(){
                         </Link>
                         <div className="py-5">
                             <div className="justify-center flex space-x-5">
-                                <button className="flex justify-center items-center" onClick={()=>{('kakao')}}>
+                                <button className="flex justify-center items-center" onClick={()=>{signIn('kakao')}}>
                                     <Image width={40} height={40} src={kakaologin} alt="카카오로그인" />
                                     <p className="pl-2">카카오 로그인</p>
                                 </button>       

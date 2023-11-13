@@ -2,6 +2,7 @@ import { NextRequest , NextResponse } from "next/server";
 import db from '@/db'
 
 interface PostData {
+    userid : string;
     name : string;
     title : string;
     content : string;
@@ -23,7 +24,7 @@ export const POST = async (
                 // delete - 삭제
                 // update - 수정
                 const [results] = await db.query(
-                    'insert into boarddata.board(author,title,content) values (? , ? , ?)' , [name , title , content]
+                    'insert into boarddata.board(userid , username ,title,content) values (? , ? , ?)' , [userid, name , title , content ]
                 )
                 return NextResponse.json({message : "정상적으로 글이 등록되었습니다." , result : results})
             }

@@ -2,15 +2,22 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import {useSession} from 'next-auth/react';
 
 interface formType {
+    userid : string;
     name : string;
     title : string;
     content : string;
 }
 
 export default function Write(){
+
+    const session = useSession();
+    console.log(session)
+
     const [formData,setFormData] = useState<formType>({
+        userid : '',
         name : '',
         title : '',
         content : ''
