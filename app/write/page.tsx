@@ -28,10 +28,6 @@ export default function Write(){
 
     const submitEvent = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        // if(formData.username.length === 0){
-        //     alert("작성자를 입력해주세요.")
-        //     return;
-        // }else 
         if(formData.title.length === 0){
             alert("제목을 입력해주세요.")
             return;
@@ -76,17 +72,17 @@ export default function Write(){
                             <button className='bg-[#8082d3] text-white px-10 py-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none'>등록</button>
                         </div>
                         <div className="mt-5 border rounded-xl p-5">
-                            <div className='flex flex-wrap'>
-                                <p className='text-base md:text-lg lg:text-xl basis-full mt-2 mr-1'>작성자</p>
-                                <input onChange={changeEvent} className='basis-full my-2 shadow text-gray-700 mb-2 border w-1/4 py-1 px-5 rounded-lg' type="text" name='name' defaultValue={formData.username} />
+                            <div className="flex flex-wrap my-1 border-b py-1">
+                                <p className="text-lg md:text-xl lg:text-2xl lg:basis-[10%] basis-full mt-1">작성자</p>
+                                <p className="py-2 px-5 lg:basis-[90%] basis-full">{formData.username}</p>
                             </div>
                             <div>
                                 <p className='text-base md:text-lg lg:text-xl'>제목</p>
-                                <input onChange={changeEvent} className='shadow text-gray-700 text-sm mb-2 border w-full my-2 py-2 px-5 rounded-lg' type="text" name='title' defaultValue={formData.title} />
+                                <input onChange={changeEvent} className='shadow text-gray-700 mb-2 border w-full my-2 py-2 px-5 rounded-lg' type="text" name='title' defaultValue={formData.title} />
                             </div>
                             <div>
                                 <p className='text-base md:text-lg lg:text-xl'>내용</p>
-                                <textarea onChange={changeEvent} className='shadow text-gray-700 text-sm mb-2 border w-full my-2 py-2 px-5 rounded-lg' name="content" defaultValue={formData.content}></textarea>
+                                <textarea onChange={changeEvent} rows={15} className='shadow text-gray-700 mb-2 border w-full my-2 py-2 px-5 rounded-lg' name="content" defaultValue={formData.content}></textarea>
                             </div>
                         </div>                
                     </form>

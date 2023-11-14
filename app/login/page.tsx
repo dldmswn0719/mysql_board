@@ -31,7 +31,7 @@ export default function Login(){
     useEffect(()=>{
         if(typeof window !== 'undefined'){
             const prevPage = sessionStorage.getItem('preUrl') || '/';
-            console.log(prevPage)
+            // console.log(prevPage)
             setPreUrl(prevPage)
         }
     },[])

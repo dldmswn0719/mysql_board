@@ -36,14 +36,14 @@ export default function Comment(props : CommentProps){
             {
                 session && session.user &&
                 <>
+                <div className="border p-5 rounded-xl mt-5">
                     <p>댓글 목록</p>
-                    <div className="">
-                        <input onChange={commentValue} type="text" className="border p-2 rounded" />
-                        {comment}
-                        <div className="border-t">
-                            <button className="border bg-[#a6a7e0] text-white p-2" onClick={cmtSubmit}>등록</button>
-                        </div>
+                    <input onChange={commentValue} maxLength={200} type="text" className="border p-2 rounded-md w-full h-32" />
+                    <div className="border-t mt-5 flex justify-between">
+                        <p className="mt-5">{comment.length}/200</p>
+                        <button className="bg-[#a6a7e0] text-white mt-5 px-5 py-2 rounded-xl" onClick={cmtSubmit}>등록</button>
                     </div>
+                </div>
                 </>
             }        
         </>

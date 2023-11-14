@@ -79,9 +79,6 @@ export const authOptions : any = {
         }
       })
     ],
-    pages : {
-        signIn : '/login'
-    },
     // jwt 만료일 설정
     session : {
         strategy  : "jwt",
