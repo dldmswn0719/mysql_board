@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Login from '@/components/login'
-import {getServerSession} from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import AuthSession from './session';
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,14 +23,13 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
 
-    const session = await getServerSession(authOptions)
-    console.log(session)
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Login session={session} />
-        {children}
+        <AuthSession>
+          <Login />
+          {children}
+        </AuthSession>
       </body>
     </html>
   )

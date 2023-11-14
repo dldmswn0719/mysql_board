@@ -19,6 +19,7 @@ export const GET = async (
             // const [results] = await db.query<RowDataPacket[]>('SELECT * FROM sakila.city limit 10 offset 10');
             const [results] = await db.query<RowDataPacket[]>('SELECT * FROM boarddata.board order by date desc limit ? offset ?',[perPage,offset]);
             // desc 최신순(내림차순)  asc (오름차순)
+            
 
             const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.board')
             const totalCnt = countResult[0].cnt;
