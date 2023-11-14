@@ -7,7 +7,8 @@ interface PostList {
     id : number;
     title : string;
     content : string;
-    author : string;
+    userid : string;
+    username : string;
     date : string;
     count : string;
 }
@@ -91,7 +92,7 @@ export default function Post(){
                                                     {e.title}
                                                 </Link>
                                             </li>
-                                            <li className='px-6 md:basis-2/12 py-3 text-center'>{e.author}</li>                                       
+                                            <li className='px-6 md:basis-2/12 py-3 text-center'>{e.username}</li>                                       
                                             <li className='px-6 md:basis-2/12 py-3 text-center'>{formatDate}</li>                                       
                                         </ul>
                                     )

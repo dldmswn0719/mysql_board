@@ -29,8 +29,12 @@ export const POST = async (
         if(memberCnt > 0){
             return NextResponse.json({message : "이미 사용중인 이메일입니다."})
         }else{
-            const [results] = await db.query('insert into boarddata.member (email,password,name) values(?,?,?)',[email,hash,name])
-            return NextResponse.json({message : "성공" , data : results})
+            await db.query('insert into boarddata.member (email,password,name) values(?,?,?)',[email,hash,name])
+            const data = {
+                email : email,
+                password : password
+            }
+            return NextResponse.json({message : "성공" , data : data})
         }
 
     }else{

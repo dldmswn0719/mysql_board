@@ -1,4 +1,6 @@
 'use client'
+import { useCustomSession } from "@/app/sessions";
+import Comment from "@/components/comment";
 import Link from "next/link";
 import { useParams } from "next/navigation"
 import React, { useEffect , useState } from 'react';
@@ -7,12 +9,14 @@ interface PostList {
     id : number;
     title : string;
     content : string;
-    author : string;
+    userid : string;
+    username : string;
     date : string;
     count : string;
 }
 
 export default function Detatil(){
+    const {data : session} = useCustomSession();
     const params = useParams();
     const [post, setPost] = useState<PostList[]>([])
     const [isLoading,setIsLoading] = useState<boolean>(true);
@@ -71,15 +75,22 @@ export default function Detatil(){
                     <div className="w-full px-5">
                         <div className="max-w-7xl mx-auto">
                             <div className="flex justify-end mt-5">
-                                <div>
-                                    <Link href={`/edit/${post[0].id}`}><button className="bg-[#8082d3] text-white px-10 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button></Link>
-                                    <button onClick={()=>{deletePost(post[0].id)}} className="bg-[#a6a7e0] text-white px-10 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
-                                </div>
+                                {
+                                    session && session.user && (
+                                        (post && post[0] && session.user.email === post[0].userid) || session.user.level === 10
+                                    ) &&
+                                    <>
+                                        <div>
+                                            <Link href={`/edit/${post[0].id}`}><button className="bg-[#8082d3] text-white px-10 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button></Link>
+                                            <button onClick={()=>{deletePost(post[0].id)}} className="bg-[#a6a7e0] text-white px-10 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
+                                        </div>                                        
+                                    </>
+                                }
                             </div>
                             <div className="lg:mt-8 border rounded-xl p-5">
                                 <div className="flex flex-wrap my-1 border-b py-1">
                                     <p className="text-lg md:text-xl lg:text-2xl lg:basis-[5%] basis-full mt-1">작성자</p>
-                                    <p className="py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.author}</p>
+                                    <p className="py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.username}</p>
                                 </div>
                                 <div className="flex flex-wrap border-b py-1">
                                     <p className="text-lg md:text-xl lg:text-2xl lg:basis-[5%] basis-full mt-1">제목</p>
@@ -88,8 +99,18 @@ export default function Detatil(){
                                 <p className="text-lg md:text-xl lg:text-2xl pt-2">내용</p>
                                 <div className="py-2 px-5 w-full mt-3 h-auto">
                                     <p>{post && post[0]?.content}</p>
-                                </div>                
+                                </div>
                             </div>
+                            {
+                                session ?
+                                <Comment id={post && post[0]?.id} />
+                                :
+                                <div className="block border p-4 text-center my-5 rounded-xl">
+                                    <Link href="/login">
+                                        <p>로그인 이후 댓글을 작성할 수 있습니다.</p>
+                                    </Link>
+                                </div>
+                            }                
                             <div className="flex justify-end mt-5">
                                 <Link href="/">
                                     <p className="text-xl">목록</p>

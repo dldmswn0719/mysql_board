@@ -8,7 +8,8 @@ interface PostList {
     id : number;
     title : string;
     content : string;
-    author : string;
+    userid : string;
+    username : string;
     date : string;
     count : string;
 }
@@ -31,7 +32,7 @@ export default function Edit () {
             console.log(data)
             setPost(data.data)
             setFormData({
-                // name: data.data[0]?.author,
+                // name: data.data[0]?.username,
                 title: data.data[0]?.title,
                 content: data.data[0]?.content
               });
@@ -89,7 +90,7 @@ export default function Edit () {
                                 <div className="lg:mt-10 mt-5 border rounded-xl p-5">
                                     <div className='flex flex-wrap border-b'>
                                         <p className='text-base md:text-lg lg:text-xl lg:basis-[5%] basis-full mt-2 mr-1'>작성자</p>
-                                        <p className='lg:basis-[90%] basis-full my-2 text-gray-700 mb-2 w-1/4 py-1 px-5'>{post && post[0].author}</p>
+                                        <p className='lg:basis-[90%] basis-full my-2 text-gray-700 mb-2 w-1/4 py-1 px-5'>{post && post[0].username}</p>
                                     </div>
                                     <div>
                                         <p className='mt-3 text-base md:text-lg lg:text-xl'>제목</p>

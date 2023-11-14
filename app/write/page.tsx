@@ -2,23 +2,21 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import {useSession} from 'next-auth/react';
+import { useCustomSession } from '../sessions';
 
 interface formType {
     userid : string;
-    name : string;
+    username : string;
     title : string;
     content : string;
 }
 
 export default function Write(){
-
-    const session = useSession();
-    console.log(session)
-
+    const {data : session} = useCustomSession();
     const [formData,setFormData] = useState<formType>({
-        userid : '',
-        name : '',
+        userid : session?.user?.email ?? '',
+        username : session?.user?.name ?? '',
+        // ?? 조건문 왼쪽이 참 
         title : '',
         content : ''
     });
@@ -30,10 +28,11 @@ export default function Write(){
 
     const submitEvent = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        if(formData.name.length === 0){
-            alert("작성자를 입력해주세요.")
-            return;
-        }else if(formData.title.length === 0){
+        // if(formData.username.length === 0){
+        //     alert("작성자를 입력해주세요.")
+        //     return;
+        // }else 
+        if(formData.title.length === 0){
             alert("제목을 입력해주세요.")
             return;
         }else if(formData.content.length === 0){
@@ -79,7 +78,7 @@ export default function Write(){
                         <div className="mt-5 border rounded-xl p-5">
                             <div className='flex flex-wrap'>
                                 <p className='text-base md:text-lg lg:text-xl basis-full mt-2 mr-1'>작성자</p>
-                                <input onChange={changeEvent} className='basis-full my-2 shadow text-gray-700 mb-2 border w-1/4 py-1 px-5 rounded-lg' type="text" name='name' defaultValue={formData.name} />
+                                <input onChange={changeEvent} className='basis-full my-2 shadow text-gray-700 mb-2 border w-1/4 py-1 px-5 rounded-lg' type="text" name='name' defaultValue={formData.username} />
                             </div>
                             <div>
                                 <p className='text-base md:text-lg lg:text-xl'>제목</p>

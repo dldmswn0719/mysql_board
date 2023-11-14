@@ -7,8 +7,21 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 import db from '@/db'
 import { RowDataPacket } from "mysql2";
+import {JWT} from "next-auth/jwt";
+import { Session } from "next-auth";
 
-export const authOptions = {
+interface User{
+    id : string;
+    name :  string;
+    email : string;
+    level : string;
+}
+
+interface CustomSession extends Session{
+    user ?: User
+}
+
+export const authOptions : any = {
     providers : [
        Github({
         clientId : `${process.env.GITHUB_ID}`,
@@ -33,20 +46,36 @@ export const authOptions = {
             password: { label: "password", type: "password" },
         },
         // 로그인 요청시 실행되는 코드 디비와 비교 이후 맞으면 return user 정보를 보내고 틀리면 return null
-        async authorize(credentials, req) {
-            const [results] = await db.query<RowDataPacket[]>('select * from boarddata.member where email =?',[credentials?.email])
-            console.log(results[0].email)
-            if(!results[0].email){
-                console.log("해당 사용자가 없습니다.");
+        async authorize(credentials) : Promise<User | null > {
+
+            try{
+                const [results] = await db.query<RowDataPacket[]>('select * from boarddata.member where email =?',[credentials?.email]);
+                const userResult = results[0];
+                // console.log(results[0].email)
+                if(!credentials || !credentials.email || !credentials.password){
+                    return null;
+                }
+                if(!userResult.email || !userResult.password){
+                    // console.log("해당 사용자가 없습니다.");
+                    return null
+                }
+                const pwCheck = await bcrypt.compare(credentials.password,userResult?.password)
+                // console.log(pwCheck)
+                if(!pwCheck){
+                    // console.log("비밀번호가 틀렸습니다.")
+                    return null
+                }
+                const user:User = {
+                    id : userResult.id,
+                    name : userResult.name,
+                    email : userResult.email,
+                    level : userResult.level
+                }
+                return user;
+
+            }catch(error){
                 return null
             }
-            const pwCheck = await bcrypt.compare(credentials?.password,results[0].password)
-            console.log(pwCheck)
-            if(!pwCheck){
-                console.log("비밀번호가 틀렸습니다.")
-                return null
-            }
-            return results[0]
         }
       })
     ],
@@ -61,18 +90,19 @@ export const authOptions = {
     },
     // jwt 만들때 실행되는 코드 , 토큰 발급
     callbacks : {
-        jwt : async ({token,user}) => {
+        jwt : async ({token,user} : {token:JWT , user?:User}) => {
             if(user){
-                token.user = {};
-                token.user.name = user.name
-                token.user.email = user.email
-                token.user.level = user.level
+                token.user = {
+                    name : user.name,
+                    email : user.email,
+                    level : user.level
+                }
             }
             return token
         },
         // 유저 세션이 조회될때마다 실행되는 코드
-        session : async({session,token})=>{
-            session.user = token.user;
+        session : async({session,token} : {session : CustomSession,token : JWT})=>{
+            session.user = token.user as User;
             return session
         }
     },
