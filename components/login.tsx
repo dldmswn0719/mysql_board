@@ -1,19 +1,25 @@
-'use client'
-import { useCustomSession } from "@/app/sessions";
+// 'use client'
+// import { useCustomSession } from "@/app/sessions";
 import { faHammer } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { signIn ,signOut } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import Link from "next/link"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface userInfo{
-    name : string;
-    email : string;
-    image : string;
+    user : {
+        name : string;
+        email?: string;
+        image?: string;
+        level?: number;
+    }
 }
 
-export default function Login(){
-    const {data : session , status} = useCustomSession();
+export default async function Login(){
+    // const {data : session , status} = useCustomSession();
+    let session = await getServerSession(authOptions) as userInfo;
     const redirectTo = () =>{
         sessionStorage.setItem('preUrl' , window.location.href);
         window.location.href = "/login"
@@ -39,16 +45,18 @@ export default function Login(){
                         }
                         <>
                             {
-                                status !== 'loading' && session && session.user?.email ?
+                                session && session.user ?
                                 <>
                                     <p>{session && session.user?.name}님 반갑습니다.</p>
-                                    <button onClick={()=>{signOut()}}>로그아웃</button>
+                                    <Link href='/logout'>
+                                        <button>로그아웃</button>
+                                    </Link>
                                 </>
                                 :
                                 <>
                                     <Link href='/register'>회원가입</Link>
                                     <Link href='/login'>
-                                        <button onClick={redirectTo}>로그인</button>
+                                        <button>로그인</button>
                                     </Link>
                                 </>
                             }

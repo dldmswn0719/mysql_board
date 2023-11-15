@@ -20,14 +20,14 @@ export default function Detatil(){
     const params = useParams();
     const [post, setPost] = useState<PostList[]>([])
     const [isLoading,setIsLoading] = useState<boolean>(true);
-    console.log(params)
+    // console.log(params)
 
     useEffect(()=>{
         const fetchData = async () =>{
             // 배열의 마지막 값을 가지고 오는 방법 pop
             const res = await fetch(`/api/post/${params.id}`);
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
             setPost(data.data)
             setIsLoading(false)
         }

@@ -1,19 +1,56 @@
 'use client';
 
 import { useCustomSession } from "@/app/sessions";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface CommentProps{
     id : number
 }
 
+interface formType{
+    parentid : number;
+    userid : string;
+    username : string;
+    content : string;
+}
+
+interface CommentType {
+    id : number;
+    parentid : number;
+    userid : string;
+    username : string;
+    content : string;
+    date : string;
+}
+
 export default function Comment(props : CommentProps){
     const {id} = props;
     // alert(id)
-    const [comment , setComment] = useState<string>('');
+    const {data : session} = useCustomSession();
+    const [formData , setFormData] = useState<formType>({
+        parentid : id,
+        userid : session?.user?.email ?? '',
+        username : session?.user?.name ?? '',
+        content : ''
+    })
+
+    const [totalComment , setTotalComment] = useState<CommentType[]>();
     const commentValue = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        setComment(e.target.value)
+        setFormData({...formData , [e.target.name] : e.target.value});
+        // console.log(formData)
     }
+    const params = useParams();
+    // console.log(params) 
+
+    useEffect(()=>{
+       const fetchData = async () =>{
+        const res = await fetch(`/api/comment?id=${params.id}`)
+        const data = await res.json();
+        setTotalComment(data.result)
+       } 
+       fetchData()
+    },[params.id])
 
     const cmtSubmit = async ()=>{
         try{
@@ -22,14 +59,18 @@ export default function Comment(props : CommentProps){
                 headers : {
                     'Content-Type' : 'application/json'
                 },
-                body : JSON.stringify(comment)
+                body : JSON.stringify(formData)
             })
+            if(res.ok){
+                const data = await res.json();
+                console.log(data)
+                setTotalComment(data.result)
+            }
         }catch(error){
             console.log(error)
         }
     }
 
-    const {data : session} = useCustomSession();
 
     return(
         <>
@@ -38,9 +79,27 @@ export default function Comment(props : CommentProps){
                 <>
                 <div className="border p-5 rounded-xl mt-5">
                     <p>댓글 목록</p>
-                    <input onChange={commentValue} maxLength={200} type="text" className="border p-2 rounded-md w-full h-32" />
+                    {
+                        totalComment && totalComment.map((e,i)=>{
+                            const date = new Date(e.date);
+                            const year = date.getFullYear();
+                            const month = (date.getMonth() + 1).toString().padStart(2,'0')
+                            const day = date.getDate().toString().padStart(2,'0')
+                            const hours = (date.getHours()+9).toString().padStart(2,'0');
+                            const minutes = date.getMinutes().toString().padStart(2,'0');
+                            const seconds = date.getSeconds().toString().padStart(2,'0')
+                            const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+                            return(
+                                <div className="flex justify-between">
+                                    <p key={i}>{e.content}</p>
+                                    <p>{formatDate}</p>
+                                </div>
+                            )
+                        })
+                    }
+                    <input name="content" onChange={commentValue} maxLength={200} type="text" className="border p-2 rounded-md w-full h-32" />
                     <div className="border-t mt-5 flex justify-between">
-                        <p className="mt-5">{comment.length}/200</p>
+                        {/* <p className="mt-5">{comment.length}/200</p> */}
                         <button className="bg-[#a6a7e0] text-white mt-5 px-5 py-2 rounded-xl" onClick={cmtSubmit}>등록</button>
                     </div>
                 </div>
