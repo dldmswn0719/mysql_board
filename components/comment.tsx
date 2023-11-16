@@ -35,6 +35,15 @@ export default function Comment(props : CommentProps){
         content : ''
     })
 
+    useEffect(()=>{
+        setFormData({
+            parentid : id,
+            userid : session?.user?.email ?? '',
+            username : session?.user?.name ?? '',
+            content : ''
+        })
+    },[session?.user.name, session?.user.email , id])
+
     const [totalComment , setTotalComment] = useState<CommentType[]>();
     const commentValue = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setFormData({...formData , [e.target.name] : e.target.value});
@@ -90,8 +99,8 @@ export default function Comment(props : CommentProps){
                             const seconds = date.getSeconds().toString().padStart(2,'0')
                             const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
                             return(
-                                <div className="flex justify-between">
-                                    <p key={i}>{e.content}</p>
+                                <div key={i} className="flex justify-between">
+                                    <p>{e.content}</p>
                                     <p>{formatDate}</p>
                                 </div>
                             )
