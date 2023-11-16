@@ -75,12 +75,12 @@ export default function Edit () {
             {
                 post.length > 0 && 
                 <>
-                    <div className="w-full bg-[#6d6fcd] sticky top-0 px-5">
+                    <div className="w-full bg-[#6d6fcd] sticky top-0 px-[3%]">
                         <div className="max-w-7xl mx-auto py-5">
                             <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
                         </div>
                     </div>
-                    <div className="w-full px-5">
+                    <div className="w-full px-[3%]">
                         <div className="max-w-7xl mx-auto">
                             <form method='post'>
                                 <div className="flex justify-end mt-5">

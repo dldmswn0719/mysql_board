@@ -31,12 +31,12 @@ export default async function Home() {
 
   return (
     <>
-      <div className="w-full bg-[#6d6fcd] px-5">
+      <div className="w-full bg-[#6d6fcd] px-[3%]">
         <div className="max-w-7xl mx-auto py-5">
             <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
         </div>
       </div>
-      <div className="w-full px-5">
+      <div className="w-full px-[3%]">
           <div className="max-w-7xl mx-auto pt-3">
             {
               sessions &&
@@ -48,11 +48,11 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto">
               <div className="bg-white shadow-md my-5">
                   <div className="min-w-full">
-                      <ul className="bg-[#8082d3] text-white flex justify-between">
-                          <li className='px-6 md:basis-2/12 py-3 text-center'>번호</li>
-                          <li className='px-6 md:basis-6/12 py-3 text-center'>제목</li>
-                          <li className='px-6 md:basis-2/12 py-3 text-center'>작성자</li>
-                          <li className='px-6 md:basis-2/12 py-3 text-center'>작성일</li>
+                      <ul className="bg-[#8082d3] text-white flex justify-between px-2">
+                          <li className='basis-[15%] py-3 text-center'>번호</li>
+                          <li className='basis-[65%] py-3 text-center'>제목</li>
+                          <li className='basis-[20%] py-3 text-center'>작성자</li>
+                          <li className='md:basis-[20%] py-3 text-center hidden md:block'>작성일</li>
                       </ul>
                       {
                           results && results.map((e,i)=>{
@@ -62,15 +62,15 @@ export default async function Home() {
                               const day = date.getDate().toString().padStart(2,'0')
                               const formatDate = `${year}-${month}-${day}`
                               return(                                     
-                                  <ul key={i} className='flex justify-between'>
-                                      <li className='px-6 md:basis-2/12 py-3 text-center'>{results.length - i}</li>
-                                      <li className='px-6 md:basis-6/12 py-3 text-center'>
+                                  <ul key={i} className='flex justify-between px-2'>
+                                      <li className='basis-[15%] py-3 text-center'>{results.length - i}</li>
+                                      <li className='px-2 basis-[65%] py-3 text-center'>
                                           <Link href={`/post/${e.id}`}>
                                               {e.title}
                                           </Link>
                                       </li>
-                                      <li className='px-6 md:basis-2/12 py-3 text-center'>{e.username}</li>                                       
-                                      <li className='px-6 md:basis-2/12 py-3 text-center'>{formatDate}</li>                                       
+                                      <li className='basis-[20%] py-3 text-center'>{e.username}</li>                                       
+                                      <li className='md:basis-[20%] py-3 text-center hidden md:block'>{formatDate}</li>                                       
                                   </ul>
                               )
                           })

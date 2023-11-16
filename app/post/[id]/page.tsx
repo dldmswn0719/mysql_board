@@ -67,12 +67,12 @@ export default function Detatil(){
         {
             post.length > 0 && (
                 <>
-                    <div className="w-full bg-[#6d6fcd] px-5">
+                    <div className="w-full bg-[#6d6fcd] px-[3%]">
                         <div className="max-w-7xl mx-auto py-5">
                             <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
                         </div>
                     </div>
-                    <div className="w-full px-5">
+                    <div className="w-full px-[3%]">
                         <div className="max-w-7xl mx-auto">
                             <div className="flex justify-between mt-5">
                                 {
@@ -93,29 +93,31 @@ export default function Detatil(){
                                 }
                             </div>
                             <div className="lg:mt-8 mt-5 border rounded-xl p-5">
-                                <div className="flex flex-wrap my-1 border-b py-1">
-                                    <p className="text-lg md:text-xl lg:text-2xl lg:basis-[10%] basis-full mt-1">작성자</p>
-                                    <p className="py-2 px-5 lg:basis-[90%] basis-full my-3 lg:my-0">{post && post[0]?.username}</p>
+                                {/* <div className="flex justify-end">
+                                    <Link href={`/post/${post[0].id-1}`}><p className="border px-2">이전글</p></Link>
+                                    <Link href={`/post/${post[0].id+1}`}><p className="border px-2 ml-2">다음글</p></Link>
+                                </div> */}
+                                <div className="border-b py-1">
+                                    <p className="py-2 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.title}</p>
+                                    <div className="flex">
+                                        <p className="mr-5">작성자</p>
+                                        <p>{post && post[0]?.username}</p>
+                                    </div>
                                 </div>
-                                <div className="flex flex-wrap border-b py-1">
-                                    <p className="text-lg md:text-xl lg:text-2xl lg:basis-[5%] basis-full mt-1">제목</p>
-                                    <p className="py-2 px-5 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.title}</p>
-                                </div>                
-                                <p className="text-lg md:text-xl lg:text-2xl pt-2">내용</p>
-                                <div className="py-2 px-5 w-full mt-3 h-auto">
+                                <div className="mt-5">
                                     <p>{post && post[0]?.content}</p>
-                                </div>
+                                </div>                
+                                {
+                                    session ?
+                                    <Comment id={post && post[0]?.id} />
+                                    :
+                                    <div className="block border p-4 text-center my-5 rounded-xl">
+                                        <Link href="/login">
+                                            <p>로그인 이후 댓글을 작성할 수 있습니다.</p>
+                                        </Link>
+                                    </div>
+                                }                
                             </div>
-                            {
-                                session ?
-                                <Comment id={post && post[0]?.id} />
-                                :
-                                <div className="block border p-4 text-center my-5 rounded-xl">
-                                    <Link href="/login">
-                                        <p>로그인 이후 댓글을 작성할 수 있습니다.</p>
-                                    </Link>
-                                </div>
-                            }                
                         </div>
                     </div>
                 </>

@@ -54,12 +54,12 @@ export default function Post(){
 
     return(
         <>
-            <div className="w-full bg-[#6d6fcd] px-5">
+            <div className="w-full bg-[#6d6fcd] px-[3%]">
                 <div className="max-w-7xl mx-auto py-5">
                     <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
                 </div>
             </div>
-            <div className="w-full px-5">
+            <div className="w-full px-[3%]">
                 <div className="max-w-7xl mx-auto pt-3">
                     <div className="flex justify-end">
                         <Link href="/write" className='bg-[#8082d3] text-lg text-white px-10 py-2 rounded-xl shadow-[0_0_0_1px_#dadcdf,0_4px_8px_0_rgba(0,0,0,.15)] hover:bg-[#6d6fcd]'>글쓰기</Link>
@@ -69,10 +69,10 @@ export default function Post(){
                     <div className="bg-white shadow-md my-5">
                         <div className="min-w-full">
                             <ul className="bg-[#8082d3] text-white flex justify-between">
-                                <li className='px-6 md:basis-2/12 py-3 text-center'>번호</li>
-                                <li className='px-6 md:basis-6/12 py-3 text-center'>제목</li>
-                                <li className='px-6 md:basis-2/12 py-3 text-center'>작성자</li>
-                                <li className='px-6 md:basis-2/12 py-3 text-center'>작성일</li>
+                                <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>번호</li>
+                                <li className='px-6 md:basis-6/12 basis-5/12 py-3 text-center'>제목</li>
+                                <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>작성자</li>
+                                <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>작성일</li>
                             </ul>
                             {
                                 posts && posts.length === 0 && !isLoading ?
@@ -86,14 +86,14 @@ export default function Post(){
                                     const formatDate = `${year}-${month}-${day}`
                                     return(                                     
                                         <ul key={i} className='flex justify-between'>
-                                            <li className='px-6 md:basis-2/12 py-3 text-center'>{posts.length - i}</li>
-                                            <li className='px-6 md:basis-6/12 py-3 text-center'>
+                                            <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>{posts.length - i}</li>
+                                            <li className='px-6 md:basis-6/12 basis-5/12 py-3 text-center'>
                                                 <Link href={`/post/${e.id}`}>
                                                     {e.title}
                                                 </Link>
                                             </li>
-                                            <li className='px-6 md:basis-2/12 py-3 text-center'>{e.username}</li>                                       
-                                            <li className='px-6 md:basis-2/12 py-3 text-center'>{formatDate}</li>                                       
+                                            <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>{e.username}</li>                                       
+                                            <li className='px-6 md:basis-2/12 basis-1/12 py-3 text-center'>{formatDate}</li>                                       
                                         </ul>
                                     )
                                 })

@@ -27,7 +27,7 @@ export default async function Login(){
 
     return(
         <>
-            <div className="w-full px-5">
+            <div className="w-full px-[3%]">
                 <div className="max-w-7xl mx-auto">
                     <div className="py-5 flex justify-end space-x-3">
                         {

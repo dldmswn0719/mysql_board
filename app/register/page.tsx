@@ -74,12 +74,12 @@ export default function Register(){
 
     return(
         <>
-            <div className="w-full bg-[#6d6fcd] sticky top-0 px-5">
+            <div className="w-full bg-[#6d6fcd] sticky top-0 px-[3%]">
                 <div className="max-w-7xl mx-auto py-5">
                     <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
                 </div>
             </div>
-            <div className="w-full px-5 bg-[#f5f5f5]">
+            <div className="w-full px-[3%] bg-[#f5f5f5]">
                 <div className="flex justify-center h-[calc(100vh-136px)] items-center">
                     <div className="lg:basis-1/3 md:basis-1/2 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
                     <form onSubmit={submitEvent} action="/api/auth/signup" method="POST">
