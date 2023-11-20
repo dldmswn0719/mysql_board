@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Login from '@/components/login'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import AuthSession from './session';
+import Nav from '@/components/nav'
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,7 +27,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthSession>
-          <Login />
+          <Nav />
           {children}
         </AuthSession>
       </body>

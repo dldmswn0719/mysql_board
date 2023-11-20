@@ -67,13 +67,8 @@ export default function Detatil(){
         {
             post.length > 0 && (
                 <>
-                    <div className="w-full bg-[#6d6fcd] px-[3%]">
-                        <div className="max-w-7xl mx-auto py-5">
-                            <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
-                        </div>
-                    </div>
-                    <div className="w-full px-[3%]">
-                        <div className="max-w-7xl mx-auto">
+                    <div className="w-full">
+                        <div className="max-w-7xl mx-auto px-[3%]">
                             <div className="flex justify-between mt-5">
                                 {
                                     session && session.user && (
@@ -93,15 +88,17 @@ export default function Detatil(){
                                 }
                             </div>
                             <div className="lg:mt-8 mt-5 border rounded-xl p-5">
-                                {/* <div className="flex justify-end">
-                                    <Link href={`/post/${post[0].id-1}`}><p className="border px-2">이전글</p></Link>
-                                    <Link href={`/post/${post[0].id+1}`}><p className="border px-2 ml-2">다음글</p></Link>
-                                </div> */}
-                                <div className="border-b py-1">
-                                    <p className="py-2 lg:basis-[95%] basis-full my-3 lg:my-0">{post && post[0]?.title}</p>
+                                <div className="py-1">
+                                    <p className="py-2 lg:basis-[95%] basis-full my-3 lg:my-0 text-2xl text-center font-bold">{post && post[0]?.title}</p>
+                                </div>
+                                <div className="flex justify-between border-y py-3 bg-[#f9f9f9]">
                                     <div className="flex">
-                                        <p className="mr-5">작성자</p>
-                                        <p>{post && post[0]?.username}</p>
+                                        <p className="mr-5 font-bold">작성자</p>
+                                        <p className="mr-5">{post && post[0]?.username}</p>
+                                    </div>
+                                    <div className="flex">
+                                        <p className="font-bold">작성일</p>
+                                        <p>{post && post[0]?.date}</p>
                                     </div>
                                 </div>
                                 <div className="mt-5">

@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect , useState } from 'react'
 
 interface PostList {
@@ -54,13 +53,8 @@ export default function Post(){
 
     return(
         <>
-            <div className="w-full bg-[#6d6fcd] px-[3%]">
-                <div className="max-w-7xl mx-auto py-5">
-                    <Link href='/'><h1 className='text-2xl font-medium text-white cursor-pointer'>자유 게시판</h1></Link>
-                </div>
-            </div>
-            <div className="w-full px-[3%]">
-                <div className="max-w-7xl mx-auto pt-3">
+            <div className="w-full">
+                <div className="max-w-7xl mx-auto pt-3 px-[3%]">
                     <div className="flex justify-end">
                         <Link href="/write" className='bg-[#8082d3] text-lg text-white px-10 py-2 rounded-xl shadow-[0_0_0_1px_#dadcdf,0_4px_8px_0_rgba(0,0,0,.15)] hover:bg-[#6d6fcd]'>글쓰기</Link>
                     </div>
