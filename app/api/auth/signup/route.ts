@@ -7,6 +7,7 @@ interface formType{
     email : string;
     password : string;
     name : string;
+    gender: string;
 }
 
 export const POST = async (
@@ -14,9 +15,9 @@ export const POST = async (
 ) : Promise<NextResponse> => {
     if(req.method === 'POST'){
 
-        const {email,password,name} : formType = JSON.parse(await req.text());
+        const {email,password,name,gender} : formType = JSON.parse(await req.text());
 
-        if(!email || !password || !name){
+        if(!email || !password || !name || !gender){
             return NextResponse.json({message : "데이터가 부족합니다."})
         }
 
@@ -29,7 +30,7 @@ export const POST = async (
         if(memberCnt > 0){
             return NextResponse.json({message : "이미 사용중인 이메일입니다."})
         }else{
-            await db.query('insert into boarddata.member (email,password,name) values(?,?,?)',[email,hash,name])
+            await db.query('insert into boarddata.member (email,password,name,gender) values(?,?,?,?)',[email,hash,name,gender])
             const data = {
                 email : email,
                 password : password

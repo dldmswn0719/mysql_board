@@ -87,7 +87,7 @@ export default function Comment(props : CommentProps){
                 session && session.user &&
                 <>
                 <div className="border p-5 rounded-xl mt-5">
-                    <p>댓글 목록</p>
+                    <p className="border-b">댓글 목록</p>
                     {
                         totalComment && totalComment.map((e,i)=>{
                             const date = new Date(e.date);
@@ -99,16 +99,18 @@ export default function Comment(props : CommentProps){
                             const seconds = date.getSeconds().toString().padStart(2,'0')
                             const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
                             return(
-                                <div key={i} className="flex justify-between">
+                                <div key={i} className="pb-10 border-b">
+                                    <div className="flex gap-x-2">
+                                        <p>{e.username}</p>
+                                        <p>작성일 {formatDate}</p>
+                                    </div>
                                     <p>{e.content}</p>
-                                    <p>{formatDate}</p>
                                 </div>
                             )
                         })
                     }
-                    <input name="content" onChange={commentValue} maxLength={200} type="text" className="border p-2 rounded-md w-full h-32" />
+                    <input name="content" onChange={commentValue} maxLength={200} type="text" className="border p-2 rounded-md w-full h-32 mt-5" />
                     <div className="border-t mt-5 flex justify-between">
-                        {/* <p className="mt-5">{comment.length}/200</p> */}
                         <button className="bg-[#a6a7e0] text-white mt-5 px-5 py-2 rounded-xl" onClick={cmtSubmit}>등록</button>
                     </div>
                 </div>

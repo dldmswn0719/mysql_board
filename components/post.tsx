@@ -19,9 +19,6 @@ export default function Post(){
     const [page,setPage] = useState<number>(1);
     const [isLoading,setIsLoading] = useState<boolean>(true);
 
-    // const router = useRouter();
-    // console.log(router)
-
     useEffect(()=>{
         const fetchData = async () =>{
             if(!page) return;

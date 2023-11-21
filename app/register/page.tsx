@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { faEyeSlash,faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 interface formType{
@@ -10,6 +9,7 @@ interface formType{
     password : string;
     confirmPassword: string;
     name : string;
+    gender: string;  
 }
 
 export default function Register(){
@@ -18,7 +18,8 @@ export default function Register(){
         email : '',
         password : '',
         confirmPassword: '',
-        name : ''
+        name : '',
+        gender: ''
     })
 
     const [message,setMessage] = useState<string>("");
@@ -76,12 +77,23 @@ export default function Register(){
         <>
             <div className="w-full px-[3%] bg-[#f5f5f5]">
                 <div className="flex justify-center h-[calc(100vh-102px)] items-center">
-                    <div className="lg:basis-1/3 md:basis-1/2 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
+                    <div className="lg:basis-1/2 md:basis-3/4 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
                     <form onSubmit={submitEvent} action="/api/auth/signup" method="POST">
                         <p className="text-2xl text-center mb-5">회원가입</p>
                         <div className="mb-5">
                             <p>이름</p>
                             <input onChange={changeEvent} type="text" name="name" placeholder="홍길동" required className="focus:outline-none w-full py-3 mb-2 border-b border-[#ddd]" />
+                        </div>
+                        <div className="mb-5 flex">
+                        <p className="mr-5">성별</p>
+                        <label className="mr-5 flex">
+                            <input className="mr-1" onChange={changeEvent} type="radio" name="gender" value="남자" required />
+                            남자
+                        </label>
+                        <label>
+                            <input className="mr-1" onChange={changeEvent} type="radio" name="gender" value="여자" required />
+                            여자
+                        </label>
                         </div>
                         <div className="mb-5">
                             <p>이메일 주소</p>

@@ -11,6 +11,7 @@ import { faEyeSlash,faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useCustomSession } from "../sessions";
+import Modal from "@/components/modal"
 
 interface userInfo{
     user:{
@@ -53,14 +54,14 @@ export default function Login(){
     }
 
     if(session && session.user){
-        return <p>이미 로그인중입니다.</p>
+        return <Modal error={"이미 로그인중입니다"} address={"/"} />
     }
 
     return(
         <>
             <div className="w-full px-[3%] bg-[#f5f5f5]">
                 <div className="flex justify-center h-[calc(100vh-102px)] items-center">
-                    <div className="lg:basis-1/3 md:basis-1/2 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
+                    <div className="lg:basis-1/2 md:basis-3/4 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
                         <div className="text-2xl text-center mb-5">로그인</div>
                         <div className="mb-5">
                             <p>이메일 주소</p>
