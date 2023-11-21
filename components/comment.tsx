@@ -87,7 +87,7 @@ export default function Comment(props : CommentProps){
                 session && session.user &&
                 <>
                 <div className="border p-5 rounded-xl mt-5">
-                    <p className="border-b">댓글 목록</p>
+                    <p className="border-b pb-5">댓글 목록</p>
                     {
                         totalComment && totalComment.map((e,i)=>{
                             const date = new Date(e.date);
@@ -99,12 +99,12 @@ export default function Comment(props : CommentProps){
                             const seconds = date.getSeconds().toString().padStart(2,'0')
                             const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
                             return(
-                                <div key={i} className="pb-10 border-b">
-                                    <div className="flex gap-x-2">
-                                        <p>{e.username}</p>
+                                <div key={i} className="py-5 border-b">
+                                    <div className="flex justify-between">
+                                        <p className="font-bold">{e.username}</p>
                                         <p>작성일 {formatDate}</p>
                                     </div>
-                                    <p>{e.content}</p>
+                                    <p className="mt-2 pb-5">{e.content}</p>
                                 </div>
                             )
                         })

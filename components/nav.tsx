@@ -27,9 +27,9 @@ export default async function Nav(){
             <div className="w-full">
                 <div className="max-w-7xl mx-auto px-[3%]">
                     <div className="flex justify-between">
-                        <div>
+                        <div className="mt-1">
                             <Link href="/">
-                                <Image src={Logo} priority={true} alt="로고" style={{width: '230px', height: '100px'}} />
+                                <Image src={Logo} priority={true} alt="로고" style={{width: '220px', height: '80px'}} />
                             </Link>
                         </div>
                         <div className="flex flex-wrap justify-center items-center space-x-3">

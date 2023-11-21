@@ -1,7 +1,6 @@
 import db from '@/db';
 import { RowDataPacket } from 'mysql2';
 import { getServerSession } from 'next-auth';
-import { AuthOptions } from 'next-auth';
 import Link from 'next/link';
 import Comment from '@/components/comment';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -84,14 +83,14 @@ export default async function Detatil({
                                 <div className="py-1">
                                     <p className="py-2 lg:basis-[95%] basis-full my-3 lg:my-0 text-2xl text-center font-bold">{post?.title}</p>
                                 </div>
-                                <div className="flex justify-between border-y py-3 bg-[#f9f9f9]">
+                                <div className="flex justify-between border-y px-2 py-3 bg-[#f9f9f9]">
                                     <div className="flex">
                                         <p className="mr-5 font-bold">작성자</p>
-                                        <p className="mr-5">{post?.username}</p>
+                                        <p>{post?.username}</p>
                                     </div>
                                     <div className="flex">
-                                        <p className="mr-5 font-bold">조회수</p>
-                                        <p className="mr-5">{post?.count}</p>
+                                        <p className="mr-3 font-bold">조회수</p>
+                                        <p>{post?.count}</p>
                                     </div>
                                 </div>
                                 <div className="mt-5">
