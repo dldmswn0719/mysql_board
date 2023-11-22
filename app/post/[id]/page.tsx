@@ -28,7 +28,7 @@ interface propsType{
 }
 
 async function Getip() {
-    const res = await fetch('http://localhost:3000/api/get-ip');
+    const res = await fetch('https://mysql-board-ruby.vercel.app/api/get-ip');
     const data = res.json();
     if(!res.ok){
         alert("에러가 발생하였습니다.");
