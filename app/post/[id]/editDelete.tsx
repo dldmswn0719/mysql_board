@@ -55,9 +55,9 @@ export default function EditDelete({results} : propsType){
                 <>
                     <div>
                         <Link href={`/edit/${results.id}`}>
-                            <button className="bg-[#8082d3] text-white px-10 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button>
+                            <button className="bg-[#8082d3] text-white md:px-10 px-5 py-2 mr-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none">수정</button>
                         </Link>
-                        <button onClick={()=>{deletePost(results.id)}} className="bg-[#a6a7e0] text-white px-10 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
+                        <button onClick={()=>{deletePost(results.id)}} className="bg-[#a6a7e0] text-white md:px-10 px-5 py-2 inline-block rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none">삭제</button>
                     </div>                                        
                 </>
             }

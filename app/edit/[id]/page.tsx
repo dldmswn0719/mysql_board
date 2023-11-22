@@ -79,8 +79,8 @@ export default function Edit () {
                         <div className="max-w-7xl mx-auto px-[3%]">
                             <form method='post'>
                                 <div className="flex justify-end mt-5">
-                                    <Link className='bg-[#a6a7e0] text-white px-10 py-2 inline-block mr-2 rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none' href="/">취소</Link>
-                                    <button onClick={()=>{EditPost(post[0].id)}} className='bg-[#8082d3] text-white px-7 py-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none'>수정 완료</button>
+                                    <Link className='bg-[#a6a7e0] text-white md:px-10 px-5 py-2 inline-block mr-2 rounded-xl shadow-md hover:bg-[#9394da] focus:outline-none' href="/">취소</Link>
+                                    <button onClick={()=>{EditPost(post[0].id)}} className='bg-[#8082d3] text-white md:px-10 px-5 py-2 rounded-xl shadow-md hover:bg-[#6d6fcd] focus:outline-none'>완료</button>
                                 </div>
                                 <div className="lg:mt-10 mt-5 border rounded-xl p-5">
                                     <div className='flex flex-wrap border-b'>

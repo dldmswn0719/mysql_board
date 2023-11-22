@@ -45,15 +45,13 @@ export default async function PostsList({
     return (
         <>  
             <div className="w-full">
-                <div className="max-w-7xl mx-auto px-[3%]">
+                <div className="max-w-7xl mx-auto px-[3%] mt-5">
                     {
-                    sessions &&
-                    <div className="flex justify-end">
-                        <Link href="/write" className='bg-[#8082d3] text-lg text-white px-10 py-2 rounded-xl shadow-[0_0_0_1px_#dadcdf,0_4px_8px_0_rgba(0,0,0,.15)] hover:bg-[#6d6fcd]'>글쓰기</Link>
-                    </div>
+                        sessions &&
+                        <div className="flex justify-end">
+                            <Link href="/write" className='bg-[#8082d3] md:text-lg text-base text-white md:px-10 px-5 py-2 rounded-xl shadow-[0_0_0_1px_#dadcdf,0_4px_8px_0_rgba(0,0,0,.15)] hover:bg-[#6d6fcd]'>글쓰기</Link>
+                        </div>
                     }
-                </div>
-                <div className="max-w-7xl mx-auto px-[3%]">
                     <div className="bg-white shadow-md my-5">
                         <div className="min-w-full">
                             <ul className="bg-[#8082d3] text-white flex justify-between px-2">
@@ -63,6 +61,9 @@ export default async function PostsList({
                                 <li className='md:basis-[20%] py-3 text-center hidden md:block'>작성일</li>
                             </ul>
                             {
+                                results && results.length === 0 ?
+                                <p className='text-center text-lg py-3'>등록된 게시글이 없습니다.</p>
+                                :
                                 results && results.map((e,i)=>{
                                     const date = new Date(e.date);
                                     const year = date.getFullYear();
@@ -104,7 +105,7 @@ export default async function PostsList({
                     nextStart <= lastPage && <Link href={`/posts/${nextStart}`} className='bg-white border px-2 py-1 text-sm rounded'>다음</Link>
                 }
             </div>
-            <Search /> 
+            <Search />   
         </>
     )
 }

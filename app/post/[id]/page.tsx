@@ -71,15 +71,10 @@ export default async function Detatil({
                 <>
                     <div className="w-full">
                         <div className="max-w-7xl mx-auto px-[3%]">
-                            <div className="flex justify-between mt-5">
-                                <div>
-                                    <Link href="/">
-                                        <p className="text-xl">목록</p>
-                                    </Link>
-                                </div>
+                            <div className="flex justify-end mt-5">
                                 <EditDelete results={post as propsType['results']} />  
                             </div>
-                            <div className="lg:mt-8 mt-5 border rounded-xl p-5">
+                            <div className="lg:mt-8 mt-5 border rounded-xl md:p-5 p-3">
                                 <div className="py-1">
                                     <p className="py-2 lg:basis-[95%] basis-full my-3 lg:my-0 text-2xl text-center font-bold">{post?.title}</p>
                                 </div>
@@ -106,6 +101,11 @@ export default async function Detatil({
                                         </Link>
                                     </div>
                                 }          
+                            </div>
+                            <div className='flex justify-end mt-2 mb-5'>
+                                <Link href="/">
+                                    <p className="text-base border py-2 px-5 bg-[#6d6fcd] text-white rounded-xl">목록</p>
+                                </Link>
                             </div>
                         </div>
                     </div>

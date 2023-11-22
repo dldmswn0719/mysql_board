@@ -45,6 +45,8 @@ export default function Comment(props : CommentProps){
     },[session?.user.name, session?.user.email , id])
 
     const [totalComment , setTotalComment] = useState<CommentType[]>();
+    const [editCommentId, setEditCommentId] = useState<number | null>(null);
+    const [editContent, setEditContent] = useState<string>('');
     const commentValue = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setFormData({...formData , [e.target.name] : e.target.value});
         // console.log(formData)
@@ -80,6 +82,49 @@ export default function Comment(props : CommentProps){
         }
     }
 
+    const editComment = async () => {
+        if (editCommentId === null) return;
+    
+        try {
+            const res = await fetch('/api/comment/edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: editCommentId, content: editContent }),
+            });
+    
+            if (res.ok) {
+                const fetchData = await fetch(`/api/comment?id=${params.id}`);
+                const data = await fetchData.json();
+                setTotalComment(data.result);
+                setEditCommentId(null); 
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deleteComment = async (commentId: number) => {
+        try {
+            const res = await fetch('/api/comment/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: commentId }),
+            });
+    
+            if (res.ok) {
+                const fetchData = await fetch(`/api/comment?id=${params.id}`);
+                const data = await fetchData.json();
+                setTotalComment(data.result);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     return(
         <>
@@ -100,11 +145,27 @@ export default function Comment(props : CommentProps){
                             const formatDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
                             return(
                                 <div key={i} className="py-5 border-b">
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between flex-wrap ">
                                         <p className="font-bold">{e.username}</p>
                                         <p>작성일 {formatDate}</p>
                                     </div>
                                     <p className="mt-2 pb-5">{e.content}</p>
+                                    <div className="flex justify-end gap-x-2">
+                                        {
+                                            editCommentId === e.id ? (
+                                                <>
+                                                    <input value={editContent} onChange={(el) => setEditContent(el.target.value)} />
+                                                    <button onClick={editComment}>완료</button>
+                                                    <button onClick={() => setEditCommentId(null)}>취소</button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button onClick={() => { setEditCommentId(e.id); setEditContent(e.content); }}>수정</button>
+                                                    <button onClick={() => deleteComment(e.id)}>삭제</button>
+                                                </>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             )
                         })

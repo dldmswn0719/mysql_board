@@ -1,4 +1,3 @@
-
 import { faHammer } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,8 +6,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Logout from "./logout";
 import Login from "./login";
-import Image from "next/image";
-import Logo from '@/public/logo.png'
 
 interface userInfo{
     user : {
@@ -26,14 +23,12 @@ export default async function Nav(){
         <>
             <div className="w-full">
                 <div className="max-w-7xl mx-auto px-[3%]">
-                    <div className="flex justify-between">
-                        <div className="mt-1">
-                            <Link href="/">
-                                <Image src={Logo} priority={true} alt="로고" style={{width: '220px', height: '80px'}} />
-                            </Link>
-                        </div>
-                        <div className="flex flex-wrap justify-center items-center space-x-3">
-                            {
+                    <div className="flex justify-between items-center mt-5">
+                        <Link href="/">                        
+                            <p className="md:text-3xl text-xl mt-0.5">은주의 게시판</p>
+                        </Link>
+                        <div className="flex flex-wrap justify-center items-center gap-x-2">
+                            {/* {
                                 session && session.user.level === 10 ?
                                 <div className="flex">
                                     <FontAwesomeIcon className="pr-1 pt-1" icon={faHammer} />
@@ -45,12 +40,13 @@ export default async function Nav(){
                                     <FontAwesomeIcon className="pr-1 pt-1" icon={faUser} />
                                     <p>일반회원</p>
                                 </div>
-                            }
+                            } */}
+                            {/* 관리자, 혹은 일반회원 출력 */}
                             <>
                                 {
                                     session && session.user ?
                                     <>
-                                        <p>{session && session.user?.name}님 반갑습니다.</p>
+                                        <p>{session && session.user?.name}님</p>
                                         <Logout />
                                     </>
                                     :

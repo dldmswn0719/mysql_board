@@ -21,9 +21,13 @@ export default function Search(){
     }
 
     return(
-        <div className="flex justify-center gap-x-5">
-            <input placeholder="제목을 입력해주세요." ref={inputRef} onChange={searchValue} type="text" className="border py-2 px-5" />
-            <button className="bg-[#8082d3] text-white px-5 rounded-lg" onClick={searchSubmit}>검색</button>
+        <div className="w-full">
+            <div className="max-w-7xl mx-auto px-[3%]">
+                <div className="flex justify-center gap-x-2 mb-5">
+                    <input placeholder="제목을 입력해주세요." ref={inputRef} onChange={searchValue} type="text" className="border py-2 px-2 w-3/5 md:w-2/5" />
+                    <button className="bg-[#8082d3] text-white px-4 rounded-lg" onClick={searchSubmit}>검색</button>
+                </div>
+            </div>
         </div>
     )
 }
