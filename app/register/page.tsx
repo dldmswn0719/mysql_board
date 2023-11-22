@@ -83,7 +83,7 @@ export default function Register(){
     return(
         <>
             <div className="w-full px-[3%] bg-[#f5f5f5]">
-                <div className="flex justify-center h-[calc(100vh-102px)] items-center">
+                <div className="flex justify-center h-[calc(100vh-78px)] items-center">
                     <div className="lg:basis-1/2 md:basis-3/4 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
                         <form onSubmit={submitEvent} action="/api/auth/signup" method="POST">
                             <p className="text-2xl text-center mb-5">회원가입</p>

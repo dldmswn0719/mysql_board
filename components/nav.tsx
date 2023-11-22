@@ -23,7 +23,7 @@ export default async function Nav(){
         <>
             <div className="w-full">
                 <div className="max-w-7xl mx-auto px-[3%]">
-                    <div className="flex justify-between items-center mt-5">
+                    <div className="flex justify-between items-center py-5">
                         <Link href="/">                        
                             <p className="md:text-3xl text-xl mt-0.5">은주의 게시판</p>
                         </Link>
