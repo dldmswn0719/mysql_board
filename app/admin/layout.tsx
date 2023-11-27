@@ -39,7 +39,7 @@ export default async function DashboardLayout({
             <div className="bg-[#f1f0f5] flex justify-between px-[4%] md:px-[2%]">
                 {/* 네비 */}
                 <AdminNav />
-                <div className="md:pl-48 pt-9 w-full">
+                <div className="md:pl-48 py-9 w-full">
                     {children}
                 </div>
             </div>
