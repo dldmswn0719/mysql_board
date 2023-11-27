@@ -43,8 +43,8 @@ export default async function Detatil({
     params ?: {id?: number}
 }){
     const getIp = await Getip();
-    const userIp = getIp.data
-    console.log(userIp)
+    const userIp = getIp.data.ip
+    // console.log(userIp)
     const postId = params?.id !== undefined ? params.id : 1;
     const [results] = await db.query<RowDataPacket[]>('select * from boarddata.board where id = ?', [postId])
     const post = results && results[0]
@@ -52,7 +52,7 @@ export default async function Detatil({
 
     const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.view_log where postid = ?',[postId,userIp]);
     const totalCnt = countResult[0].cnt
-    console.log(totalCnt + "개")
+    // console.log(totalCnt + "개")
 
     if(results.length > 0){
         if(totalCnt === 0){

@@ -12,7 +12,7 @@ export const POST = async (
     if(req.method === 'POST'){
         try{
             const {id} : PostNumber = JSON.parse(await req.text());
-            console.log(id)
+            // console.log(id)
             if(!id){
                 return NextResponse.json({message : "데이터가 부족합니다."})
             }else{

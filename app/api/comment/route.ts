@@ -17,7 +17,7 @@ export const POST = async (
 
         try{
             const {parentid , userid , username , content} : PostData = JSON.parse(await req.text());
-            console.log(parentid , userid , username , content)
+            // console.log(parentid , userid , username , content)
             if(!parentid || !userid || !username || !content){
                 return NextResponse.json({message : "데이터가 부족합니다."})
             }else{
@@ -41,7 +41,7 @@ export const GET = async (
     if(req.method === 'GET'){
         try{
             const parentid = req.nextUrl.searchParams.get("id");
-            console.log(parentid)
+            // console.log(parentid)
 
             const [results] = await db.query<RowDataPacket[]>('select * from boarddata.comment where parentid = ? order by date desc ',[parentid])
 

@@ -15,7 +15,7 @@ export const POST = async (
     if(req.method === 'POST'){
         try{
             const {userid, username , title , content} : PostData = JSON.parse(await req.text());
-            console.log(userid, username , title , content)
+            // console.log(userid, username , title , content)
             if(!userid || !username || !title || !content ){
                 // 데이터가 없는것 체크하는것이기 때문에 ! 꼭 써야함.
                 return NextResponse.json({message : "데이터가 부족합니다."})

@@ -19,7 +19,7 @@ export default async function PostsList({
 }: {
     params?:{page ?: number}
 }) {
-    console.log(params)
+    // console.log(params)
     const currentPage = params?.page !== undefined ? params.page : 1;
     //현재 파라미터가 값이 없다면 1페이지가 되고 그게 아니라면 해당 페이지로 접속
 
@@ -40,7 +40,7 @@ export default async function PostsList({
     let nextStart = Math.ceil((currentPage) / 5) * 5 + 1;
 
     let sessions = await getServerSession(authOptions) as userInfo;
-    console.log(sessions)
+    // console.log(sessions)
 
     return (
         <>  

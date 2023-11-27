@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default async function NotFound() {
     const headerList = headers();
-    console.log(headerList.get('host'))
+    // console.log(headerList.get('host'))
     const domain = headerList.get('referer')
     return(
         <>

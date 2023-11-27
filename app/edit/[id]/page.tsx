@@ -29,7 +29,7 @@ export default function Edit () {
             // 배열의 마지막 값을 가지고 오는 방법 pop
             const res = await fetch(`/api/post/${params.id}`);
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
             setPost(data.data)
             setFormData({
                 // name: data.data[0]?.username,
@@ -58,7 +58,7 @@ export default function Edit () {
             })
             if(res.ok){
                 const data = await res.json();
-                console.log(data.message);
+                // console.log(data.message);
                 alert(data.message)
                 window.location.href = '/';
             }else{

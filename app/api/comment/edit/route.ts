@@ -13,7 +13,7 @@ export const POST = async (
     if(req.method === 'POST'){
         try{
             const {id, content} : EditData = JSON.parse(await req.text());
-            console.log(id, content)
+            // console.log(id, content)
             if(!id || !content){
                 return NextResponse.json({message : "데이터가 부족합니다."})
             }else{
