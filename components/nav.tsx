@@ -21,9 +21,9 @@ export default async function Nav(){
 
     return(
         <>
-            <div className="w-full">
+            <div className="w-full border-b">
                 <div className="max-w-7xl mx-auto px-[3%]">
-                    <div className="flex justify-between items-center py-5">
+                    <div className="flex justify-between items-center py-7">
                         <Link href="/">                        
                             <p className="md:text-3xl text-xl mt-0.5">은주의 게시판</p>
                         </Link>

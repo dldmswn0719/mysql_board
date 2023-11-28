@@ -29,6 +29,7 @@ export default function Visit(){
     },[])
 
     return(
-        <p>방문자</p>
+        <>
+        </>
     )
 }
