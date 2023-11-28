@@ -5,6 +5,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import AuthSession from './session';
 import Nav from '@/components/nav'
+import Visit from '@/components/etc/visit'
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,6 +28,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthSession>
+          <Visit />
           <Nav />
           {children}
         </AuthSession>

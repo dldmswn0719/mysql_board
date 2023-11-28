@@ -1,73 +1,24 @@
 'use client'
-
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 interface userType{
     email : string;
     password ?: string;
-    // 비밀번호 있을수도 있고 없을수도 있다 -> 변경할수도있고 안할수도 있다
     name : string;
     level : number;
-    type : string;
-    id : number;
+    gender: string;  
 }
 
-export default function MemberEdit({params} : {params : 
-    {id:number}}){
-
-    const [userData , setUserData] = useState<userType>();
-
-    useEffect(()=>{
-        const fetchData = async () =>{
-            try{
-                const res = await fetch('/api/admin',{
-                    cache : 'no-cache',
-                    method : 'POST',
-                    headers : {
-                        'Content-Type' : 'application/json'
-                    },
-                    body : JSON.stringify({
-                        pathUrl : 'edit',
-                        id : params.id
-                    })
-                })
-                if(res.ok){
-                    const result = await res.json();
-                    const data = result.data
-                    if(data.lengh < 1){
-                        alert("데이터가 없습니다.")
-                        window.location.href = "/admin/member"
-                    }
-                    setUserData(data[0])
-                    // console.log(data)
-                }
-            }catch(error){
-                alert(error)
-            }
-        }
-        fetchData()
-    },[params.id])
+export default function AdminAdd(){
 
     const [formData,setFormData] = useState<userType>({
-        email : userData ? userData.email : '',
-        password : userData ? userData.password : '',
-        name : userData ? userData.name : '',
-        level : userData ? userData.level : 2,
-        type : 'edit',
-        id : params.id
+        email : '',
+        password : '',
+        name : '',
+        level : 2,
+        gender : ''
     })
-
-    useEffect(()=>{
-        setFormData({
-            email : userData ? userData.email : '',
-            password : userData ? userData.password : '',
-            name : userData ? userData.name : '',
-            level : userData ? userData.level : 2,
-            type : 'edit',
-            id : params.id
-        })
-    },[userData , params.id])
 
     const changeEvent = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=>{
         setFormData({
@@ -89,7 +40,7 @@ export default function MemberEdit({params} : {params :
                 const result = await res.json();
                 const data = result.data
                 if(result.message === "성공"){
-                    alert(data + "님의 정보를 수정 하였습니다.")
+                    alert(data.name + "님을 추가 하였습니다.")
                     window.location.href ="/admin/member"
                 }
             }
@@ -101,12 +52,12 @@ export default function MemberEdit({params} : {params :
     return(
         <>
             <div className="widget w-full overflow-hidden mb-5 p-4">
-                <h3>회원 수정</h3>
+                <h3>회원 추가</h3>
             </div>
             <div className="widget w-full overflow-hidden mb-5 p-4">
                 <div className="flex mb-4 items-center">
                     <label htmlFor="email" className="basis-3/12 text-xs sm:text-sm">이메일 : </label>
-                    <input onChange={changeEvent} defaultValue={userData && userData.email} name="email" type="text" disabled className="border text-sm p-2 rounded-md" />
+                    <input onChange={changeEvent} name="email" type="text" className="border text-sm p-2 rounded-md" />
                 </div>
             </div>
             <div className="widget w-full overflow-hidden mb-5 p-4">
@@ -118,13 +69,22 @@ export default function MemberEdit({params} : {params :
             <div className="widget w-full overflow-hidden mb-5 p-4">
                 <div className="flex mb-4 items-center">
                     <label htmlFor="email" className="basis-3/12 text-xs sm:text-sm">이름 : </label>
-                    <input onChange={changeEvent} defaultValue={userData && userData.name} name="name" type="text" className="border text-sm p-2 rounded-md" />
+                    <input onChange={changeEvent} name="name" type="text" className="border text-sm p-2 rounded-md" />
+                </div>
+            </div>
+            <div className="widget w-full overflow-hidden mb-5 p-4">
+                <div className="flex mb-4 items-center">
+                    <label htmlFor="email" className="basis-3/12 text-xs sm:text-sm">성별 : </label>
+                        <p className="mr-1">남자</p>
+                        <input onChange={changeEvent} type="radio" name="gender" value="남자" className="mr-1" />
+                        <p className="mr-1">여자</p>
+                        <input onChange={changeEvent} type="radio" name="gender" value="여자" className="mr-1" />
                 </div>
             </div>
             <div className="widget w-full overflow-hidden mb-5 p-4">
                 <div className="flex mb-4 items-center">
                     <label htmlFor="email" className="basis-3/12 text-xs sm:text-sm">레벨 : </label>
-                    <select onChange={changeEvent} value={`${userData && userData.level}`} name="level" className="border text-sm px-5 py-2 rounded-md">
+                    <select onChange={changeEvent} name="level" className="border text-sm px-5 py-2 rounded-md">
                         {
                             [2,3,4,5,6,7,8,9].map((i)=>(
                                 <option key={i} value={i}>{i}</option>
@@ -135,7 +95,7 @@ export default function MemberEdit({params} : {params :
             </div>
             <div className="flex justify-end gap-x-5">
                 <Link href="/admin/member" className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600">취소</Link>
-                <button onClick={submitEvent} className="bg-[#8082d3] text-white px-4 py-2 rounded shadow-md hover:bg-[#6d6fcd]">수정</button>
+                <button onClick={submitEvent} className="bg-[#8082d3] text-white px-4 py-2 rounded shadow-md hover:bg-[#6d6fcd]">추가</button>
             </div>
         </>
     )

@@ -89,11 +89,11 @@ export default function Edit () {
                                     </div>
                                     <div>
                                         <p className='mt-3 text-base md:text-lg lg:text-xl'>제목</p>
-                                        <input className='shadow text-gray-700 text-sm mb-2 border w-full my-2 py-2 px-5 rounded-lg' type="text" name='title' defaultValue={formData.title} onChange={handleChange} />
+                                        <input className='shadow text-gray-700 mb-2 border w-full my-2 py-2 px-5 rounded-lg' type="text" name='title' defaultValue={formData.title} onChange={handleChange} />
                                     </div>
                                     <div>
                                         <p className='text-base md:text-lg lg:text-xl'>내용</p>
-                                        <textarea className='shadow text-gray-700 text-sm mb-2 border w-full my-2 py-2 px-5 rounded-lg' name="content"  defaultValue={formData.content} onChange={handleChange} ></textarea>
+                                        <textarea className='shadow text-gray-700 mb-2 border w-full my-2 py-2 px-5 rounded-lg' name="content"  defaultValue={formData.content} onChange={handleChange} ></textarea>
                                     </div>
                                 </div>                
                             </form>
