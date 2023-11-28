@@ -70,8 +70,9 @@ export default async function Detatil({
             results.length > 0 && (
                 <>
                     <div className="w-full">
-                        {[postId,userIp,postId,userIp]}
-                        {getIp.data}
+                        <p>문서 : {postId}</p>
+                        <p>아이피 : {userIp}</p>
+                        <p>데이터 : {getIp.data}</p>
                         <div className="max-w-7xl mx-auto px-[3%]">
                             <div className="flex justify-end mt-5">
                                 <EditDelete results={post as propsType['results']} />  
