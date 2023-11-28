@@ -44,7 +44,7 @@ export default async function Detatil({
 }){
     const getIp = await Getip();
     const userIp = getIp.data.ip
-    // console.log(userIp)
+    console.log(userIp)
     const postId = params?.id !== undefined ? params.id : 1;
     const [results] = await db.query<RowDataPacket[]>('select * from boarddata.board where id = ?', [postId])
     const post = results && results[0]
