@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Comment from '@/components/comment';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import EditDelete from './editDelete';
+import CountView from './count';
 
 interface userInfo {
     user : {
@@ -27,39 +28,31 @@ interface propsType{
     }
 }
 
-async function Getip() {
-    const res = await fetch('https://mysql-board-ruby.vercel.app/api/get-ip');
-    const data = res.json();
-    if(!res.ok){
-        alert("에러가 발생하였습니다.");
-        return;
-    }
-    return data;
-}
+
 
 export default async function Detatil({
     params
 } : {
     params ?: {id?: number}
 }){
-    const getIp = await Getip();
-    const userIp = getIp.data.ip
+    // const getIp = await Getip();
+    // const userIp = getIp.data.ip
     
     const postId = params?.id !== undefined ? params.id : 1;
     const [results] = await db.query<RowDataPacket[]>('select * from boarddata.board where id = ?', [postId])
     const post = results && results[0]
     let session = await getServerSession(authOptions) as userInfo;
 
-    const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.view_log where postid = ?',[postId,userIp]);
-    const totalCnt = countResult[0].cnt
-    // console.log(totalCnt + "개")
+    // const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.view_log where postid = ?',[postId,userIp]);
+    // const totalCnt = countResult[0].cnt
+    // // console.log(totalCnt + "개")
 
-    if(results.length > 0){
-        if(totalCnt === 0){
-            await db.query<RowDataPacket[]>('update boarddata.board set count = count + 1 where id = ?',[postId])
-        }
-        // await db.query<RowDataPacket[]>('insert into boarddata.view_log(postid,ip_address,view_date) select ?,?,NOW() where not exists (select 1 from boarddata.view_log where postid =? and ip_address =? and view_date > now() - interval 24 hour)',[postId,userIp,postId,userIp])
-    }
+    // if(results.length > 0){
+    //     if(totalCnt === 0){
+    //         await db.query<RowDataPacket[]>('update boarddata.board set count = count + 1 where id = ?',[postId])
+    //     }
+    //     // await db.query<RowDataPacket[]>('insert into boarddata.view_log(postid,ip_address,view_date) select ?,?,NOW() where not exists (select 1 from boarddata.view_log where postid =? and ip_address =? and view_date > now() - interval 24 hour)',[postId,userIp,postId,userIp])
+    // }
     // select 1 존재 여부를 확인하기 위해 사용 > 1이라는건 상수 값으로 실제 데이터는 중요하지 않으며 , 존재 여부를 확인하기 위함
     //내가 원하는 테이블에서 어떠한 조건 즉 and 까지 포함한 3가지 조건이 모두 충족하는 조건을 찾는다.
     // 어떠한 행도 반환하지 않을 때만 참이 된다 . 즉 3가지 조건이 모두 참일 때 혹은 데이터가 없을때 쿼리가 실행
@@ -69,10 +62,9 @@ export default async function Detatil({
         {
             results.length > 0 && (
                 <>
+                <CountView postId={postId}/>
                     <div className="w-full">
-                        <p>문서 : {postId}</p>
-                        <p>아이피 : {userIp}</p>
-                        <p>데이터 : {getIp.data}</p>
+                        
                         <div className="max-w-7xl mx-auto px-[3%]">
                             <div className="flex justify-end mt-5">
                                 <EditDelete results={post as propsType['results']} />  

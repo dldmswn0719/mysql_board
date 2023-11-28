@@ -3,29 +3,28 @@ import { NextRequest,NextResponse } from 'next/server';
 // import { NextApiRequest , NextApiResponse } from 'next';
 import {RowDataPacket} from 'mysql2/promise'
 
-export const GET = async (
+export const POST = async (
     req : NextRequest,
     res : NextResponse
 ) : Promise<NextResponse> =>{
 
 
-    if(req.method === 'GET'){
-        // console.log(req.nextUrl.searchParams.get("page"))
-        const page = Number(req.nextUrl.searchParams.get("page") || 1);
-        const perPage = 15;
-        const offset = (page - 1) * perPage;
-
+    if(req.method === 'POST'){
+        const {postId , ip} = JSON.parse(await req.text());
         try{
-            // const [results] = await db.query<RowDataPacket[]>('SELECT * FROM sakila.city limit 10 offset 10');
-            const [results] = await db.query<RowDataPacket[]>('SELECT * FROM boarddata.board order by date desc limit ? offset ?',[perPage,offset]);
-            // desc 최신순(내림차순)  asc (오름차순)
-            
+            const [results] = await db.query<RowDataPacket[]>('select * from boarddata.board where id = ?', [postId])
+            const post = results && results[0]
 
-            const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.board')
-            const totalCnt = countResult[0].cnt;
-            // console.log(results)
+const [countResult] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.view_log where postid = ?',[postId,ip]);
+    const totalCnt = countResult[0].cnt
 
-            return NextResponse.json({message : "성공" , results , totalCnt , page , perPage})
+    if(results.length > 0){
+        if(totalCnt === 0){
+            await db.query<RowDataPacket[]>('update boarddata.board set count = count + 1 where id = ?',[postId])
+        }
+        await db.query<RowDataPacket[]>('insert into boarddata.view_log(postid,ip_address,view_date) select ?,?,NOW() where not exists (select 1 from boarddata.view_log where postid =? and ip_address =? and view_date > now() - interval 1 second)',[postId,ip,postId,ip])
+    }
+            return NextResponse.json({message : "성공"})
 
         }catch(error){
             return NextResponse.json({error: error})
