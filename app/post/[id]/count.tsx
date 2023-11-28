@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 
-
-
 export default function CountView({postId} : {postId:number} ){
 
     useEffect(()=>{
@@ -23,24 +21,7 @@ export default function CountView({postId} : {postId:number} ){
                         ip : data.data.ip,
                         postId : postId
                     })
-                })
-
-                // await fetch('/api/visit',{
-                //     cache : 'no-cache',
-                //     method : 'POST',
-                //     headers : {
-                //         'Content-Type' : 'application/json'
-                //     },
-                //     body : JSON.stringify({
-                //         ip : data.data.ip,
-                //         platform : data.data.platform,
-                //         agent : data.data.userAgent
-                //     })
-                // })
-
-
-
-               
+                })      
             }catch(error){
                 alert(error)
             }
@@ -48,7 +29,8 @@ export default function CountView({postId} : {postId:number} ){
         fetchData();
 
     }, [])
+    
     return(
-        <>아이디:{postId}</>
+        <></>
     )
 }

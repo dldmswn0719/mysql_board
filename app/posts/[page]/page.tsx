@@ -45,7 +45,7 @@ export default async function PostsList({
     return (
         <>  
             <div className="w-full">
-                <div className="max-w-7xl mx-auto px-[3%] mt-5">
+                <div className={`max-w-7xl mx-auto px-[3%] ${sessions ? 'mt-5' : 'mt-10'}`}>
                     {
                         sessions &&
                         <div className="flex justify-end">
