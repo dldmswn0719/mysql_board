@@ -36,7 +36,7 @@ export default function NewMember(){
         }
         fetchData()
     },[])
-    
+
     return(
         <>
             <div className="widget basis-full md:basis-[49.3%]">
@@ -54,7 +54,7 @@ export default function NewMember(){
                     {
                         userData && userData.map((e,i)=>{
                             const date = new Date(e.date);
-                            const hour = (date.getHours()+9).toString().padStart(2,'0')
+                            const hour = date.getHours().toString().padStart(2,'0')
                             const minutes = date.getMinutes().toString().padStart(2,'0')
                             const seconds = date.getMinutes().toString().padStart(2,'0')
                             const formatDate = `${hour}:${minutes}:${seconds}`
