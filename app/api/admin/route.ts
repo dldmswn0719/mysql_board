@@ -32,10 +32,10 @@ Promise<NextResponse> =>{
 
             case 'mainCnt' : 
             const [totalCnt] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.member');
-            const [todayCnt] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.member where date >= CURDATE() - interval 1 day');
-            const [writeCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.board where date >= CURDATE() - interval 1 day');
-            const [commentCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.comment where date >= CURDATE() - interval 1 day');
-            const [visitCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.visits where visit_time >= CURDATE() - interval 1 day');
+            const [todayCnt] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.member where date >= CURDATE()');
+            const [writeCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.board where date >= CURDATE()');
+            const [commentCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.comment where date >= CURDATE()');
+            const [visitCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.visits where visit_time >= CURDATE()');
             const [visitTotalCnt] = await db.query<RowDataPacket[]>('select count (*) as cnt from boarddata.visits');
             // 총 방문자수
 
@@ -50,12 +50,12 @@ Promise<NextResponse> =>{
             return NextResponse.json({mesaage : "성공" , data : totalData})
 
             case 'mainNewMember' :
-            const [todayMember] = await db.query<RowDataPacket[]>('select * from boarddata.member where date >= CURDATE() - interval 1 day');
+            const [todayMember] = await db.query<RowDataPacket[]>('select * from boarddata.member where date >= CURDATE()');
             return NextResponse.json({mesaage : "성공" , data : todayMember})
 
             case 'mainPost' :
-            const [newPost] = await db.query<RowDataPacket[]>('select * from boarddata.board where date >= CURDATE() - interval 1 day');
-            const [newComment] = await db.query<RowDataPacket[]>('select * from boarddata.comment where date >= CURDATE() - interval 1 day');
+            const [newPost] = await db.query<RowDataPacket[]>('select * from boarddata.board where date >= CURDATE()');
+            const [newComment] = await db.query<RowDataPacket[]>('select * from boarddata.comment where date >= CURDATE()');
             const postData = {
                 newPost : newPost ,
                 newComment : newComment
