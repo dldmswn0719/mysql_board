@@ -1,17 +1,13 @@
 import{headers} from 'next/headers'
-import NotPng from '@/public/404.png'
-import Image from "next/image";
 
 export default async function NotFound() {
     const headerList = headers();
-    // console.log(headerList.get('host'))
     const domain = headerList.get('referer')
     return(
         <>
             <div className="w-full">
                 <div className="max-w-7xl mx-auto px-[3%]">
-                    <Image src={NotPng} alt="404이미지" width={400} height={200} />
-                    <p>입력하신 {domain}은 없는 페이지 입니다.</p>        
+                    <p className='text-center text-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>입력하신 {domain}은 없는 페이지 입니다.</p>        
                 </div>
             </div>
         </>

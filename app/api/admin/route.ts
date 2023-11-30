@@ -30,6 +30,36 @@ Promise<NextResponse> =>{
             const [editResult] = await db.query<RowDataPacket[]>('select * from boarddata.member where id = ?',[id]);
             return NextResponse.json({message : "성공" , data : editResult})
 
+            case 'mainChart_1':
+                const [resultsChart_1] = await db.query<RowDataPacket[]>('select DATE(date) as date, count(*) as user_count from boarddata.member where date >= CURDATE() - interval 7 day group by DATE(date) order by date DESC');
+                return NextResponse.json({ message: "성공", data: resultsChart_1 });
+              case 'mainChart_2':
+                const [visitResult] = await db.query<RowDataPacket[]>(`select agent, platform, DATE(CONVERT_TZ(visit_time, "+00:00", "+09:00")) as date, HOUR(CONVERT_TZ(visit_time, "+00:00", "+09:00")) as hour, count(*) as user_count from boarddata.visits where CONVERT_TZ(visit_time, "+00:00", "+09:00") >= CONVERT_TZ(CURDATE(), "+00:00", "+09:00") - INTERVAL 7 DAY  group by agent, platform,  DATE(CONVERT_TZ(visit_time, "+00:00", "+09:00")), HOUR(CONVERT_TZ(visit_time, "+00:00", "+09:00"))  order by date DESC, hour DESC;`);
+                const [agentResult] = await db.query<RowDataPacket[]>(`SELECT 
+                agent,
+                COUNT(*) AS agent_count
+              FROM 
+                boarddata.visits 
+              WHERE 
+                CONVERT_TZ(visit_time, '+00:00', '+09:00') >= CONVERT_TZ(CURDATE(), '+00:00', '+09:00') - INTERVAL 7 DAY 
+              GROUP BY 
+                agent;`);
+                const [platformResult] = await db.query<RowDataPacket[]>(`SELECT 
+                platform,
+                COUNT(*) AS platform_count
+              FROM 
+                boarddata.visits 
+              WHERE 
+                CONVERT_TZ(visit_time, '+00:00', '+09:00') >= CONVERT_TZ(CURDATE(), '+00:00', '+09:00') - INTERVAL 7 DAY 
+              GROUP BY 
+                platform;`);
+                const dataResult = {
+                  visitResult : visitResult,
+                  agentResult : agentResult,
+                  platformResult : platformResult
+                }
+                return NextResponse.json({ message: "성공", data: dataResult });
+
             case 'mainCnt' : 
             const [totalCnt] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.member');
             const [todayCnt] = await db.query<RowDataPacket[]>('select count(*) as cnt from boarddata.member where date >= CURDATE()');
