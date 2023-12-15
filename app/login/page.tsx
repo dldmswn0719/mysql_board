@@ -60,7 +60,7 @@ export default function Login(){
     return(
         <>
             <div className="w-full px-[3%] bg-[#f5f5f5]">
-                <div className="flex justify-center h-[calc(100vh-78px)] items-center">
+                <div className="flex justify-center h-[calc(100vh-95px)] items-center">
                     <div className="lg:basis-1/2 md:basis-3/4 basis-full p-5 shadow-[0px_0px_10px_rgba(0,0,0,0.1)] bg-white rounded-xl">
                         <div className="text-2xl text-center mb-5">로그인</div>
                         <div className="mb-5">
